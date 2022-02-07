@@ -40,11 +40,11 @@ list(map(split_title_and_name, people))
 import numpy as np
 import math
 
-# Criacao de array unidimensional com integers
+# Criar de array unidimensional com integers
 a = np.array([1, 2, 3])
 print(a)
 
-# Criacao de array multidimensional com integers
+# Criar de array multidimensional com integers
 b = np.array([[1, 2, 3], [4, 5, 6]])
 b
 
@@ -53,7 +53,7 @@ b
 b.shape #verifica o comprimento
 a.dtype #verifica o tipo
 
-# Criacao de array unidimensional com floats
+# Criar de array unidimensional com floats
 c = np.array([2.2, 5, 1.1])
 print(c)
 
@@ -65,3 +65,12 @@ e = np.ones([2, 3])
 print(e)
 
 np.random.rands(2, 3)
+
+# Criar array com uma "ordem"
+#   Neste caso, o primeiro argumento é o limite inicial e o segundo argumento é o limite final e o terceiro argumento é a diferença entre cada número consecutivo.
+f = np.arange(10, 50, 2)
+f
+
+# Criar array com floats e uma ordem
+#   Neste caso,o terceiro argumento não é a diferença entre dois números, mas é o número total de itens que você deseja gerar.
+np.linspace(0, 2, 15) #15 sendo do 0 (incluso) a 2 (incluso)
