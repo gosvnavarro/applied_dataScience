@@ -40,11 +40,11 @@ list(map(split_title_and_name, people))
 import numpy as np
 import math
 
-# Criacao de array unidimensional
+# Criacao de array unidimensional com integers
 a = np.array([1, 2, 3])
 print(a)
 
-# Criacao de array multidimensional
+# Criacao de array multidimensional com integers
 b = np.array([[1, 2, 3], [4, 5, 6]])
 b
 
@@ -52,3 +52,7 @@ b
 #   e também podemos verificar o tipo de itens no array.
 b.shape #verifica o comprimento
 a.dtype #verifica o tipo
+
+# Criacao de array unidimensional com floats
+c = np.array([2.2, 5, 1.1])
+print(c)
