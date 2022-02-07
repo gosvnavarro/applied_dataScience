@@ -85,3 +85,27 @@ print(c)
 
 d = a * b #multiplicação de arrays
 print(d)
+
+
+# Indexação
+# de array unidimensional
+a = np.array([1, 3, 5, 7])
+a[2]
+
+# de array multidimensional
+#   insere-se o índice, que é composto por dois inteiros. O primeiro é referente a linha e o segundo a coluna.
+b = np.array([[1, 2], [3, 4], [5, 6]])
+b[1, 1]
+
+# mostrar múltiplos números
+print(b[[0, 1, 2], [0, 1, 1]])
+
+
+# Boolean
+print(b > 5) # esse comando irá retornar um array de verdadeiros e falsos dependendo se a condição foi "alcançada".
+
+
+# Slicing
+c = np.array([0, 1, 2, 3, 4, 5])
+print(a[:3]) # pegar os três primeiros elementos
+
