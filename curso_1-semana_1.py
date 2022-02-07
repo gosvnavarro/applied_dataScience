@@ -56,3 +56,12 @@ a.dtype #verifica o tipo
 # Criacao de array unidimensional com floats
 c = np.array([2.2, 5, 1.1])
 print(c)
+
+# Criar array com 0, 1 e números aleatórios
+d = np.zeros([2, 3])
+print(d)
+
+e = np.ones([2, 3])
+print(e)
+
+np.random.rands(2, 3)
