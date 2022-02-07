@@ -109,3 +109,29 @@ print(b > 5) # esse comando irá retornar um array de verdadeiros e falsos depen
 c = np.array([0, 1, 2, 3, 4, 5])
 print(a[:3]) # pegar os três primeiros elementos
 
+
+
+#######################
+# DESCOBRINDO O NUMPY #
+#######################
+# Importar bibliotecas
+import re
+
+# Exemplo 1
+text = "This is a good day."
+
+if re.search("good", text):
+    print("Wonderful")
+else:
+    print("Alas :(")
+    
+# Exemplo 2
+text = "Amy works diligently. Amy gets good grades. Our student Amy is successful."
+
+re.split("Amy", text)
+re.findall("Amy", text)
+
+# Exemplo 3
+text = "Amy works diligently. Amy gets good grades. Our student Amy is successful."
+
+re.search("^Amy", text)
