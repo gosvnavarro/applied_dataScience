@@ -74,3 +74,14 @@ f
 # Criar array com floats e uma ordem
 #   Neste caso,o terceiro argumento não é a diferença entre dois números, mas é o número total de itens que você deseja gerar.
 np.linspace(0, 2, 15) #15 sendo do 0 (incluso) a 2 (incluso)
+
+
+# Operações matemáticas com arrays
+a = np.array([10, 20, 30, 40])
+b = np.array([1, 2, 3, 4])
+
+c = a - b #subtração de arrays
+print(c)
+
+d = a * b #multiplicação de arrays
+print(d)
