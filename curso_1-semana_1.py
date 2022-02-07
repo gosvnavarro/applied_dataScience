@@ -31,3 +31,24 @@ def split_title_and_name(person):
     return '{} {}'.format(title, lastname)
 
 list(map(split_title_and_name, people))
+
+
+#######################
+# DESCOBRINDO O NUMPY #
+#######################
+# Importar bibliotecas
+import numpy as np
+import math
+
+# Criacao de array unidimensional
+a = np.array([1, 2, 3])
+print(a)
+
+# Criacao de array multidimensional
+b = np.array([[1, 2, 3], [4, 5, 6]])
+b
+
+# Imprimir o comprimento de cada dimensão chamando o atributo shape, que retorna uma tupla,
+#   e também podemos verificar o tipo de itens no array.
+b.shape #verifica o comprimento
+a.dtype #verifica o tipo
