@@ -9,6 +9,7 @@ def names():
     get_names = re.findall(pattern, simple_string)
     return(get_names)
 
+names()
 
 # PART B
 import re
@@ -21,6 +22,7 @@ def grades():
     get_list = re.findall(pattern, grades)
     return (get_list)
 
+grades()
 
 # PART C
 import re
@@ -29,13 +31,18 @@ def logs():
         logdata = file.read()
     
     # YOUR CODE HERE
-    pattern = []
+        list_dict = []
     
-    pattern_host = re.findall('(.*?)\-', logdata)
-    pattern_user = re.findall('\-(.*?)\[', logdata)
-    pattern_time = re.findall('\[(.*?)\]', logdata)
-    pattern_request = re.findall('\"(.*?)\"]', logdata)
+    pattern="""(?P<host>[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)
+                    (\ - \ )
+                    (?P<user_name>(\w*)(\S))
+                    (\  \S)
+                    (?P<time>\d+\S\w*\S\d+\S\d+\S\d+\S\d+\s\S\d+)
+                    (\S\s\S)
+                    (?P<request>\w*\s\S*\s\w*\S\d.\d*)
+                 """
+    for item in re.finditer(pattern,logdata,re.VERBOSE): 
+        list_dict.append(item.groupdict())
+    return list_dict
 
-    pattern.append({'host':pattern_host, 'user_name':pattern_user,
-                    'time':pattern_time, 'request':pattern_request})
-    return(pattern)
+logs()
