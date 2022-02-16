@@ -18,7 +18,9 @@ def grades():
         grades = file.read()
 
     # YOUR CODE HERE
-    pattern = '\w[\w ]*: B'
+    pattern = '(.*): B'
+    #pattern = '([A-Z][a-z]+ [A-Z][a-z]+): B' <- TESTAR
+    #pattern = '[\w]*\ [\w]*(?=:\ B)' <- TESTAR
     get_list = re.findall(pattern, grades)
     return (get_list)
 
