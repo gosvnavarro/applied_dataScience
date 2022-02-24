@@ -23,3 +23,28 @@ def proportion_of_education():
     raise NotImplementedError()
     
 proportion_of_education()
+
+
+# Question 2
+def average_influenza_doses():
+    import pandas as pd
+    import numpy as np
+    
+     df = pd.read_csv("assets/NISPUF17.csv", index_col = 0)
+        
+     BREASTFEEDING_INFLUENZA = df[['CBF_01','P_NUMFLU']]
+
+    BREASTFEEDING_INFLUENZA_1 = BREASTFEEDING_INFLUENZA[BREASTFEEDING_INFLUENZA['CBF_01'] == 1].dropna()
+    BREASTFEEDING_INFLUENZA_2 = BREASTFEEDING_INFLUENZA[BREASTFEEDING_INFLUENZA['CBF_01'] == 2].dropna()
+
+    FLU1 = BREASTFEEDING_INFLUENZA_1['P_NUMFLU']
+    F1 = FLU1.sum() / FLU1.size
+
+    FLU2 = BREASTFEEDING_INFLUENZA_2['P_NUMFLU']
+    F2 = FLU2.sum() / FLU2.size
+
+    print(F1, F2)
+    return (F1, F2)
+    raise NotImplementedError()
+
+average_influenza_doses()
