@@ -72,3 +72,23 @@ def chickenpox_by_sex():
     raise NotImplementedError()
 
 chickenpox_by_sex()
+
+
+# Question 4
+def corr_chickenpox():
+    import scipy.stats as stats
+    import numpy as np
+    import pandas as pd
+    
+    # this is just an example dataframe
+    df=pd.DataFrame({"had_chickenpox_column":np.random.randint(1,3,size=(100)),
+                   "num_chickenpox_vaccine_column":np.random.randint(0,6,size=(100))})
+
+    # here is some stub code to actually run the correlation
+    corr, pval=stats.pearsonr(df["had_chickenpox_column"],df["num_chickenpox_vaccine_column"])
+    
+    # just return the correlation
+    return corr
+
+    # YOUR CODE HERE
+    raise NotImplementedError()
