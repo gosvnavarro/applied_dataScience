@@ -80,15 +80,21 @@ def corr_chickenpox():
     import numpy as np
     import pandas as pd
     
+    df = pd.read_csv("assets/NISPUF17.csv")
+    DOSES_HADCPOX = df[(df['P_NUMVRC'] >=0) & (df['HAD_CPOX'] <= 2)]
+    
+    CPOX_NO_YES = DOSES_HADCPOX['HAD_CPOX']
+    NUM_DOSES = DOSES_HADCPOX['P_NUMVRC']
+    
     # this is just an example dataframe
-    df=pd.DataFrame({"had_chickenpox_column":np.random.randint(1,3,size=(100)),
-                   "num_chickenpox_vaccine_column":np.random.randint(0,6,size=(100))})
+    df = pd.DataFrame({"had_chickenpox_column":CPOX_NO_YES,
+                   "num_chickenpox_vaccine_column":NUM_DOSES})
 
     # here is some stub code to actually run the correlation
     corr, pval=stats.pearsonr(df["had_chickenpox_column"],df["num_chickenpox_vaccine_column"])
     
     # just return the correlation
     return corr
-
-    # YOUR CODE HERE
     raise NotImplementedError()
+
+corr_chickenpox()    
