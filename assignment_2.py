@@ -32,7 +32,7 @@ def average_influenza_doses():
     
      df = pd.read_csv("assets/NISPUF17.csv", index_col = 0)
         
-     BREASTFEEDING_INFLUENZA = df[['CBF_01','P_NUMFLU']]
+    BREASTFEEDING_INFLUENZA = df[['CBF_01','P_NUMFLU']]
 
     BREASTFEEDING_INFLUENZA_1 = BREASTFEEDING_INFLUENZA[BREASTFEEDING_INFLUENZA['CBF_01'] == 1].dropna()
     BREASTFEEDING_INFLUENZA_2 = BREASTFEEDING_INFLUENZA[BREASTFEEDING_INFLUENZA['CBF_01'] == 2].dropna()
@@ -48,3 +48,27 @@ def average_influenza_doses():
     raise NotImplementedError()
 
 average_influenza_doses()
+
+
+# Question 3
+def chickenpox_by_sex():
+    import pandas as pd
+    import numpy as np
+    
+    df = pd.read_csv("assets/NISPUF17.csv", index_col = 0)
+    CPOX_SEX = df[["SEX", "HAD_CPOX", "P_NUMVRC"]].dropna()
+    CPOX_SEX = CPOX_SEX[CPOX_SEX["P_NUMVRC"] > 0]
+    
+    CPOX_SEX_M = CPOX_SEX[CPOX_SEX["SEX"] == 1]
+    CPOX_SEX_F = CPOX_SEX[CPOX_SEX["SEX"] == 2]
+    
+    CPOX_F = CPOX_SEX_F[(CPOX_SEX_F["HAD_CPOX"] == 1) & (CPOX_SEX_F["P_NUMVRC"] >= 1)]
+    NCPOX_F = CPOX_SEX_F[(CPOX_SEX_F["HAD_CPOX"] == 2) & (CPOX_SEX_F["P_NUMVRC"] >= 1)]
+    
+    RATIO_M = len(CPOX_SEX_M[CPOX_SEX_M["HAD_CPOX"] == 1])/len(CPOX_SEX_M[CPOX_SEX_M["HAD_CPOX"] == 2])
+    RATIO_F = len(CPOX_SEX_F[CPOX_SEX_F["HAD_CPOX"] == 1])/len(CPOX_SEX_F[CPOX_SEX_F["HAD_CPOX"] == 2])
+    
+    return {"male": RATIO_M, "female": RATIO_F}
+    raise NotImplementedError()
+
+chickenpox_by_sex()
