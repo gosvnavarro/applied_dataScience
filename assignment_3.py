@@ -120,3 +120,38 @@ def answer_two():
 answer_two()
 
 # QUESTION 3
+def answer_three():
+    ng = np.arange(10,20)
+    dat = answer_one().columns[[ng]]
+    avgGDP = answer_one()[dat].mean(axis=1).sort_values(ascending=False)
+    
+    return avgGDP
+    raise NotImplementedError()
+
+answer_three()
+
+# QUESTION 4
+def answer_four():
+    pg = answer_one().loc['United Kingdom', ['2006']]['2006']
+    dg = answer_one().loc['United Kingdom', ['2015']]['2015']
+    dkd = dg - pg
+    
+    return dkd
+    raise NotImplementedError()
+
+answer_four()
+
+# QUESTION 5
+def answer_five():
+    mpc = answer_one()['Energy Supply per Capita'].mean()
+    
+    return mpc
+    raise NotImplementedError()
+
+answer_five()
+
+# QUESTION 6
+# QUESTION 7
+# QUESTION 8
+# QUESTION 9
+# QUESTION 10
