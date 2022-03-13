@@ -1,4 +1,4 @@
-# Question 1
+# QUESTION 1
 def answer_one():
    df_E = pd.read_excel("assets/Energy Indicators.xls")
    df_E.drop(columns = ['Unnamed: 0', 'Unnamed: 1'],inplace=True)
@@ -56,3 +56,67 @@ def answer_one():
    raise NotImplementedError()
 
 answer_one()
+
+# QUESTION 2
+def answer_two():
+    Energy = pd.read_excel("assets/Energy Indicators.xls")
+    Energy.drop(columns=['Unnamed: 0', 'Unnamed: 1'],inplace=True)
+    Energy.drop(Energy.index[0:17],0,inplace=True)
+    Energy.drop(Energy.index[227:],0,inplace=True)
+    Energy.rename(columns={'Unnamed: 2': 'Country', 'Unnamed: 3': 'Energy Supply', 'Unnamed: 4': 'Energy Supply per Capita', 'Unnamed: 5': '% Renewable' }, inplace=True )
+    Energy.replace({'...':np.nan}, inplace= True)
+    Energy['Energy Supply'] = Energy['Energy Supply']*1000000
+    
+    l= []
+    for i in Energy['Country']:
+        i=i.split(' (')
+        l.append(i[0])
+    Energy['Country'] = l
+    
+    li = []
+    for i in Energy['Country']:
+        i = re.findall("[^0-9]+", i)
+        li.append(i[0])
+    Energy['Country'] = li
+    
+    Energy.replace({"Republic of Korea": "South Korea",
+    "United States of America": "United States",
+    "United Kingdom of Great Britain and Northern Ireland": "United Kingdom",
+    "China, Hong Kong Special Administrative Region": "Hong Kong"}, inplace= True)
+    
+    GDP = pd.read_csv("assets/world_bank.csv")
+    GDP.drop(GDP.index[0:3],0,inplace=True)
+    GDP.replace({"Korea, Rep.": "South Korea", "Iran, Islamic Rep.": "Iran", "Hong Kong SAR, China": "Hong Kong"}, inplace=True)
+    
+    il = GDP.iloc[0]
+    di = {}
+    i = 0
+    for d in GDP.columns:
+        if type(il[i]) == np.float64:
+            di[d] = str(int(il[i]))
+        else:
+            di[d] = il[i]
+        i += 1
+    
+    GDP.rename(columns=di, inplace=True)
+    GDP.drop(GDP.index[0:1],0,inplace=True)
+    GDP.rename(columns={'Country Name': 'Country'}, inplace=True)
+    
+    ScimEn = pd.read_excel("assets/scimagojr-3.xlsx")
+    
+    ji = pd.merge(ScimEn,Energy)
+    ji = pd.merge(ji, GDP)
+    ji.set_index('Country', inplace = True)
+    
+    j1 = pd.merge(ScimEn,Energy, how="outer")
+    j2 = pd.merge(j1, GDP, how="outer")
+    j2.set_index('Country', inplace = True)
+    
+    diff = j2.shape[0] - ji.shape[0]
+    
+    return  diff
+    raise NotImplementedError()
+
+answer_two()
+
+# QUESTION 3
