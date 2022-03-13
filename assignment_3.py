@@ -223,3 +223,103 @@ def answer_ten():
    raise NotImplementedError()
 
 answer_ten()
+
+# QUESTION 11
+def answer_eleven():
+    ContinentDict  = {'China':'Asia', 
+                      'United States':'North America', 
+                      'Japan':'Asia', 
+                      'United Kingdom':'Europe', 
+                      'Russian Federation':'Europe', 
+                      'Canada':'North America', 
+                      'Germany':'Europe', 
+                      'India':'Asia',
+                      'France':'Europe', 
+                      'South Korea':'Asia', 
+                      'Italy':'Europe', 
+                      'Spain':'Europe', 
+                      'Iran':'Asia',
+                      'Australia':'Australia', 
+                      'Brazil':'South America'}
+    
+    j = 0
+    Top15 = answer_one()
+    new_df = pd.DataFrame(index=['Asia', 'Australia', 'Europe', 'North America', 'South America'], columns = ['size', 'sum', 'mean', 'std'])
+    
+    Top15['pop'] = Top15['Energy Supply'] / Top15['Energy Supply per Capita']
+    Top15['Continent'] = 'cont'
+    for v in ContinentDict.values():
+        Top15['Continent'].iloc[j] = v
+        j += 1
+    new_df['size'] = Top15.groupby(Top15['Continent']).size()
+    new_df['sum'] = Top15['pop'].groupby(Top15['Continent']).sum()
+    new_df['mean'] = Top15['pop'].groupby(Top15['Continent']).mean()
+    new_df['std'] = Top15['pop'].groupby(Top15['Continent']).std()
+   
+    return new_df 
+    raise NotImplementedError()
+
+answer_eleven()
+
+# QUESTION 12
+def answer_twelve():
+    ContinentDict  = {'China':'Asia', 
+                      'United States':'North America', 
+                      'Japan':'Asia', 
+                      'United Kingdom':'Europe', 
+                      'Russian Federation':'Europe', 
+                      'Canada':'North America', 
+                      'Germany':'Europe', 
+                      'India':'Asia',
+                      'France':'Europe', 
+                      'South Korea':'Asia', 
+                      'Italy':'Europe', 
+                      'Spain':'Europe', 
+                      'Iran':'Asia',
+                      'Australia':'Australia', 
+                      'Brazil':'South America'}
+    
+    j = 0
+    Top15 = answer_one()
+    Top15['Continent'] = None
+    for v in ContinentDict.values():
+        Top15['Continent'].iloc[j] = v
+        j += 1
+    Top15['% Renewable'] = pd.cut(Top15['% Renewable'],bins=5)
+    new_renou = Top15.groupby(['Continent','% Renewable']).size()
+    
+    return new_renou
+    raise NotImplementedError()
+
+answer_twelve()
+
+# QUESTION 13
+def answer_thirteen():
+    Top15 = answer_one()
+    Top15['pop'] = Top15['Energy Supply'] / Top15['Energy Supply per Capita']
+    Top15['PopEst'] = Top15['pop'].map('{:,}'.format)
+
+    return Top15['PopEst']
+    raise NotImplementedError()
+    
+answer_thirteen()
+
+# OPTIONAL QUESTION
+def plot_optional():
+    import matplotlib as plt
+    
+    %matplotlib inline
+    Top15 = answer_one()
+    ax = Top15.plot(x='Rank', y='% Renewable', kind='scatter', 
+                    c=['#e41a1c','#377eb8','#e41a1c','#4daf4a','#4daf4a','#377eb8','#4daf4a','#e41a1c',
+                       '#4daf4a','#e41a1c','#4daf4a','#4daf4a','#e41a1c','#dede00','#ff7f00'], 
+                    xticks=range(1,16), s=6*Top15['2014']/10**10, alpha=.75, figsize=[16,6]);
+
+    for i, txt in enumerate(Top15.index):
+         ax.annotate(txt, [Top15['Rank'][i], Top15['% Renewable'][i]], ha='center')
+
+    print("This is an example of a visualization that can be created to help understand the data. \
+    This is a bubble chart showing % Renewable vs. Rank. The size of the bubble corresponds to the countries' \
+    2014 GDP, and the color corresponds to the continent.")
+   
+plot_optional()
