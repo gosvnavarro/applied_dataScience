@@ -151,7 +151,75 @@ def answer_five():
 answer_five()
 
 # QUESTION 6
+def answer_six():
+   max_ren = answer_one()['% Renewable'].max()
+   ind = answer_one().index[answer_one()['% Renewable'] == max_ren][0]
+   
+   return ind, max_ren
+   raise NotImplementedError()
+
+answer_six()
+
 # QUESTION 7
+def answer_seven():
+   new_df = answer_one().assign(ratio = answer_one()['Self-citations']/answer_one()['Citations'])
+   max_ra = new_df['ratio'].max()
+   con = new_df.index[new_df['ratio'] == max_ra][0]
+    
+   return con, max_ra
+   raise NotImplementedError()
+
+answer_seven()
+
 # QUESTION 8
+def answer_eight():
+    Top15 = answer_one()
+    Top15['pop'] = Top15['Energy Supply'] / Top15['Energy Supply per Capita']
+    dpop = Top15['pop'].sort_values(ascending=False)[2]
+    py = Top15.index[Top15['pop'] == dpop][0]
+    
+    return py
+    raise NotImplementedError()
+
+answer_eight()
+
 # QUESTION 9
+def answer_nine():
+    Top15 = answer_one()
+    Top15 = Top15.assign(pop = Top15['Energy Supply']/Top15['Energy Supply per Capita'])
+    Top15 = Top15.assign(Citable_docs_per_Capita = Top15['Citable documents'] / Top15['pop'])
+    corre = Top15['Citable_docs_per_Capita'].corr(Top15['Energy Supply per Capita'])
+    
+    return corre
+    raise NotImplementedError()
+
+answer_nine()
+
+
+def plot9():
+    import matplotlib as plt
+    %matplotlib inline
+    
+    Top15 = answer_one()
+    Top15['PopEst'] = Top15['Energy Supply'] / Top15['Energy Supply per Capita']
+    Top15['Citable docs per Capita'] = Top15['Citable documents'] / Top15['PopEst']
+    Top15.plot(x='Citable docs per Capita', y='Energy Supply per Capita', kind='scatter', xlim=[0, 0.0006])
+      
+plot9()
+
 # QUESTION 10
+def answer_ten():
+    Top15 = answer_one()
+    Top15['HighRenew'] = 1
+    j = 0
+    for i in Top15['% Renewable']:
+        if i >= Top15['% Renewable'].median():
+            Top15['HighRenew'].iloc[j] = 1
+        else:
+            Top15['HighRenew'].iloc[j] = 0
+        j+=1
+    
+   return Top15['HighRenew']
+   raise NotImplementedError()
+
+answer_ten()
