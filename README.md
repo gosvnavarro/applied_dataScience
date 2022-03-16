@@ -1,4 +1,4 @@
 # applied_dataScience
-**PT-BR:** Rápidos exercícios realizados durante as vídeo aulas do curso 'Applied Data Science with Python - Introduction to Data Science in Python' disponível no Coursera.
+**PT-BR:** Exercícios e tarefas realizadas durante as aulas do curso 'Applied Data Science with Python - Introduction to Data Science in Python' disponível no Coursera.
 
-**ENG:** Quick exercises performed during the video lessons of the 'Applied Data Science with Python - Introduction to Data Science in Python' course available on Coursera.
+**ENG:** Exercises and assignments performed during the 'Applied Data Science with Python - Introduction to Data Science in Python' course classes available on Coursera.
