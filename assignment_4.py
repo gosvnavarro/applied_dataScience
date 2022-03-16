@@ -208,3 +208,63 @@ def nfl_correlation():
     return stats.pearsonr(population_by_region, win_loss_by_region)[0]
 
 nfl_correlation()
+
+# Question 5
+import pandas as pd
+import numpy as np
+import scipy.stats as stats
+import re
+
+cities = pd.read_html("assets/wikipedia_data.html")[1]
+cities = cities.iloc[:-1, [0, 3, 5, 6, 7, 8]]
+cities.rename(columns={"Population (2016 est.)[8]": "Population"}, inplace = True)
+cities['NFL'] = cities['NFL'].str.replace(r"\[.*\]", "")
+cities['MLB'] = cities['MLB'].str.replace(r"\[.*\]", "")
+cities['NBA'] = cities['NBA'].str.replace(r"\[.*\]", "")
+cities['NHL'] = cities['NHL'].str.replace(r"\[.*\]", "")
+
+def sports_team_performance():
+    def nhl_df():
+        Big4 = 'NHL'
+        team = cities[Big4].str.extract('([A-Z]{0,2}[a-z0-9]*\ [A-Z]{0,2}[a-z0-9]*|[A-Z]{0,2}[a-z0-9]*)([A-Z]{0,2}[a-z0-9]*\ [A-Z]{0,2}[a-z0-9]*|[A-Z]{0,2}[a-z0-9]*)([A-Z]{0,2}[a-z0-9]*\ [A-Z]{0,2}[a-z0-9]*|[A-Z]{0,2}[a-z0-9]*)')
+        team['Metropolitan area'] = cities['Metropolitan area']
+        team = pd.melt(team, id_vars=['Metropolitan area']).drop(columns = ['variable']).replace("", np.nan).replace("—", np.nan).dropna().reset_index().rename(columns = {"value":"team"})
+        team = pd.merge(team,cities, how = 'left', on = 'Metropolitan area').iloc[:, 1:4]
+        team = team.astype({'Metropolitan area': str, 'team': str, 'Population': int})
+        team['team'] = team['team'].str.replace('[\w.]*\ ', '')
+        
+        _df = pd.read_csv("assets/"+str.lower(Big4)+".csv")
+        _df = _df[_df['year'] == 2018]
+        _df['team'] = _df['team'].str.replace(r'\*', "")
+        _df = _df[['team','W','L']]
+        
+        dropList = []
+        for i in range(_df.shape[0]):
+            row = _df.iloc[i]
+            if row['team'] == row['W'] and row['L'] == row['W']:
+                dropList.append(i)
+        _df = _df.drop(dropList)
+        
+        _df['team'] = _df['team'].str.replace('[\w.]* ', '')
+        _df = _df.astype({'team': str,'W': int, 'L': int})
+        _df['W/L%'] = _df['W']/(_df['W']+_df['L'])
+        
+        merge = pd.merge(team,_df,'inner', on = 'team')
+        merge = merge.groupby('Metropolitan area').agg({'W/L%': np.nanmean, 'Population': np.nanmean})  
+
+    return merge[['W/L%']]
+    
+    
+    
+    #raise NotImplementedError()
+    
+    # Note: p_values is a full dataframe, so df.loc["NFL","NBA"] should be the same as df.loc["NBA","NFL"] and
+    # df.loc["NFL","NFL"] should return np.nan
+    sports = ['NFL', 'NBA', 'NHL', 'MLB']
+    p_values = pd.DataFrame({k:np.nan for k in sports}, index=sports)
+    
+    assert abs(p_values.loc["NBA", "NHL"] - 0.02) <= 1e-2, "The NBA-NHL p-value should be around 0.02"
+    assert abs(p_values.loc["MLB", "NFL"] - 0.80) <= 1e-2, "The MLB-NFL p-value should be around 0.80"
+    return p_values
+
+sports_team_performance()
