@@ -70,3 +70,26 @@ print(record_low_2015.head())
 
 y = [n for n in range(0,365) if (low_2015.iloc[n] <= low.iloc[n]) ]
 print(y)
+
+# grafico
+plt.figure(figsize = (12, 10))
+graph = plt.gca()
+
+graph.set_xlabel('Day of the year')
+graph.set_ylabel('Temperature (tenths of degrees C)')
+graph.set_title('Record highest and lowest temperature by day of the year')
+
+plt.plot(observation_dates, high, '-o', observation_dates, low, '-o', zorder = 1)
+graph.legend(['Record high temperatures', 'Record low temperatures'])
+
+plt.scatter(x, record_high_2015, s = 100, c = 'red', zorder = 2, alpha = 0.7)
+plt.scatter(y, record_low_2015, s = 100, c = 'red', zorder = 2, alpha = 0.7)
+
+graph.legend(['Record high temperatures', 'Record low temperatures','Record broken in 2015'])
+
+graph.fill_between(observation_dates, high, low, facecolor = 'blue', alpha = 0.25)
+
+for spine in plt.gca().spines.values():
+    spine.set_visible(False)
+
+plt.show()
