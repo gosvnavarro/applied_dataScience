@@ -18,3 +18,55 @@ def leaflet_plot_stations(binsize, hashid):
     return mplleaflet.display()
 
 leaflet_plot_stations(400,'fb441e62df2d58994928907a91895ec62c2c42e6cd075c2700843b89')
+
+#---
+
+import matplotlib.pyplot as plt
+import mplleaflet
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv('data/C2A2_data/BinnedCsvs_d400/fb441e62df2d58994928907a91895ec62c2c42e6cd075c2700843b89.csv')
+print(df.head())
+
+# pegar o ano de 2015
+df_2015 = df.where(df['Date'].str.contains('2015')).dropna()
+df_2015['Date'] = df_2015.Date.str[5:]
+print(df_2015.head())
+
+df['Date'] = df.Date.str[5:]
+print(df.head())
+
+# remover bissexto 
+df = df.where(df['Date'] != '02-29')
+
+# pegar temperaturas maximas e minimas
+high = df.groupby('Date')['Data_Value'].max()
+print(high.head())
+
+low = df.groupby('Date')['Data_Value'].min()
+print(low.head())
+
+high_2015  = df_2015.groupby('Date')['Data_Value'].max()
+print(high_2015.head())
+
+low_2015 = df_2015.groupby('Date')['Data_Value'].min()
+print(low_2015.head())
+
+# pegar recordes quebrados em 2015
+observation_dates = list(range(1,366))
+
+x = np.linspace(1,365,365)
+y = np.linspace(1,365,365)
+
+record_high_2015 = high_2015[high_2015 >= high.reindex_like(high_2015)]
+print(record_high_2015.head())
+
+x = [n for n in range(0,365) if (high_2015.iloc[n] >= high.iloc[n]) ]
+print(x)
+
+record_low_2015 = low_2015[low_2015 <= low.reindex_like(low_2015)]
+print(record_low_2015.head())
+
+y = [n for n in range(0,365) if (low_2015.iloc[n] <= low.iloc[n]) ]
+print(y)
