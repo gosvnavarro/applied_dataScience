@@ -33,3 +33,36 @@ df_p['sign'] = df_p['diff'].abs()/df_p['diff']
 old_range = abs(df_p['diff']).min(), df_p['diff'].abs().max()
 new_range = .5,1
 df_p['shade'] = df_p['sign']*np.interp(df_p['diff'].abs(), old_range, new_range)
+
+# Cores das barras
+shade = list(df_p['shade'])
+
+from matplotlib import cm
+
+blues = cm.Blues
+reds = cm.Reds
+
+# Azul se positivo e vermelho se negativo
+color = ['White' if  x == 0 else reds(abs(x))
+         if x<0 else blues(abs(x)) for x in shade]
+
+# Grafico
+import matplotlib.pyplot as plt
+
+%matplotlib inline
+
+plt.figure(num = None, figsize = (6, 6), dpi = 80, facecolor = 'w', edgecolor = 'k')
+plt.bar(range(len(df.columns)), height = df.values.mean(axis = 0), 
+        yerr = letter_1, error_kw = {'capsize': 10, 'elinewidth': 2, 'alpha':0.7}, color = color)
+
+plt.axhline(y=Y, color = 'black', label = 'Y')
+plt.text(3.5, 40000, "39500")
+plt.xticks(range(len(df.columns)), df.columns)
+plt.title('Generated Data Between 1992 - 95')
+
+plt.tick_params(top='off', bottom='off',  right='off', labelbottom='on')
+
+for spine in plt.gca().spines.values():
+    spine.set_visible(False)
+
+plt.show()
